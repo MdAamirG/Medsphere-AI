@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Image Diagnosis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    
+    <header>
+        <div class="header-inner text-white text-center">
+            <div class="container grid">
+                <div class="header-inner-left">
+                    <h1>Discover Your Health with<br> <span>AI Precision</span></h1>
+                    <p class="lead">Snap. Analyze. Understand.</p>
+                    <p class="text text-md">Our cutting-edge AI technology transforms your health journey by analyzing images of your medical concerns and providing an instant, detailed summary. Get insights into possible causes and personalized recommendations, all in one place.</p>
+                </div>
+                <div class="header-inner-right">
+                    <img src="{{ url_for('static', filename='images/image (10).png') }}" alt="Medical Image Diagnosis">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h3>Attach the image you want to be diagnosed</h3>
+        <form id="uploadForm" action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+            <label for="fileInput">Choose an image to upload:</label>
+            <input type="file" id="fileInput" name="file" accept="image/png, image/jpeg, image/jpg" required>
+            <button type="submit" id="submit">Generate the Analysis</button>
+        </form>
+    </main>
+    <div id="result">
+        <div class="result-header">Analysis Result:</div>
+        <div class="result-content" id="resultContent">Your results will appear here...</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}" type="module"></script>
+</body>
+</html>

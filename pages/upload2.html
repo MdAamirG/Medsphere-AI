@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report <Summary></Summary></title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <main class="main container">
+        <section class="intro">
+            <h1 class="section-title">Welcome to Medical Report Summary </h1>
+            <p class="section-description">
+                Upload your medical reports to receive a detailed analysis powered by AI.
+            </p>
+        </section>
+        <section class="upload-form-section">
+            <form id="uploadForm" class="form">
+                <label for="fileInput" class="form-label">Upload Medical Report:</label>
+                <input type="file" id="fileInput" class="form-input" required title="Choose a medical image">
+                <button type="submit" id="submit" class="btn">Generate the Analysis</button>    
+            </form>
+        </section>
+        <div class="loading-spinner" id="loadingSpinner"></div>
+        <section id="result" class="result-section">
+            <div class="result-header">Analysis Result:</div>
+            <div class="result-content" id="resultContent">Your results will appear here...</div>
+        </section>
+    </main>
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <div class="footer-inner text-white py grid">
+                <div class="footer-item">
+                    <h3 class="footer-head">About Us</h3>
+                    <div class="icon">
+                        <img src="../images/logo.png" alt="Logo"/>
+                    </div>
+                    <p class="text text-md">
+                        We are dedicated to providing top-notch healthcare services with a focus on personalized care and advanced medical technology. Your health is our priority.
+                    </p>
+                    <address>
+                        Health Center<br>
+                        Anna University, Kotturpuram<br>
+                        Chennai, Tamil Nadu 600085<br>
+                        India
+                    </address>
+                </div>
+                <div class="footer-item">
+                    <h3 class="footer-head">Tags</h3>
+                    <ul class="tags-list flex">
+                        <li>Medical Care</li>
+                        <li>Emergency</li>
+                        <li>Therapy</li>
+                        <li>Surgery</li>
+                        <li>Medication</li>
+                        <li>Nurse</li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <h3 class="footer-head">Quick Links</h3>
+                    <ul>
+                        <li><a href="#" class="text-white">Our Services</a></li>
+                        <li><a href="#" class="text-white">Our Plan</a></li>
+                        <li><a href="#" class="text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white">Appointment Schedule</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <h3 class="footer-head">Make an Appointment</h3>
+                    <p class="text text-md">
+                        Schedule your appointment with our healthcare professionals. We are here to assist you with all your medical needs.
+                    </p>
+                    <ul class="appointment-info">
+                        <li>8:00 AM - 11:00 AM</li>
+                        <li>2:00 PM - 5:00 PM</li>
+                        <li>8:00 PM - 11:00 PM</li>
+                        <li>
+                            <i class="fas fa-envelope"></i><span>healthcentreau@gmail.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i><span> 044 2235 9070</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

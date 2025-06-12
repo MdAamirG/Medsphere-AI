@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AU Health Center</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <header class="header bg-blue">
+        <nav class="navbar bg-blue">
+            <div class="container flex">
+                <a href="{{ url_for('home') }}" class="navbar-brand">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="AUHC logo" />
+                </a>
+                <button type="button" class="navbar-show-btn">
+                    <img src="{{ url_for('static', filename='images/ham-menu-icon.png') }}" />
+                </button>
+                <div class="navbar-collapse bg-white">
+                    <button type="button" class="navbar-hide-btn">
+                        <img src="{{ url_for('static', filename='images/close-icon.png') }}" />
+                    </button>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('services') }}" class="nav-link">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('contact') }}" class="nav-link">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="search-bar">
+                        <form>
+                            <div class="search-bar-box flex">
+                                <span class="search-icon flex">
+                                </span>
+                                <input type="search" class="search-control" placeholder="Search Here" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-inner text-white text-center">
+            <div class="container grid">
+                <div class="header-inner-left">
+                    <h1>
+                        Your Most Trusted <br />
+                        <span>Health Partner</span>
+                    </h1>
+                    <p class="lead">Dedicated to Your Well-being</p>
+                    <p class="text text-md">
+                        At AU Health Center, we are committed to providing top-quality healthcare services tailored to your needs. Our team of experienced professionals is here to ensure you receive the best care possible.
+                    </p>
+                    <div class="btn-group">
+                        <a href="{{ url_for('about') }}" class="btn btn-white">Learn More</a>
+                        <a href="{{ url_for('services') }}" class="btn btn-light-blue">Explore Services</a>
+                    </div>
+                </div>
+                <div class="header-inner-right">
+                    <img src="{{ url_for('static', filename='images/header.png') }}" alt="AUHC" />
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chatbot -->
+    <button class="chatbot-toggler">
+        <span class="material-symbols-outlined">chat</span>
+    </button>
+    <div class="chatbot">
+        <header>
+            <h2>Medical Assistant</h2>
+            <button class="chatbot-close">&times;</button>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hi there! How can I help you today?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Enter a message..." required></textarea>
+            <button id="send-btn" class="material-symbols-outlined">send</button>
+        </div>
+    </div>
+
+    <main>
+        <section id="about" class="about py">
+            <div class="about-inner">
+                <div class="container grid">
+                    <div class="about-left text-center">
+                        <div class="section-head">
+                            <h2>About Us</h2>
+                            <div class="border-line"></div>
+                        </div>
+                        <p class="text text-lg">
+                            AU Health Center is dedicated to providing comprehensive healthcare services. Our team of experts is committed to delivering personalized care to meet the unique needs of each patient. We believe in promoting health and wellness through a holistic approach.
+                        </p>
+                        <a href="{{ url_for('about') }}" class="btn btn-white">Learn More</a>
+                    </div>
+                    <div class="about-right flex">
+                        <div class="img">
+                            <img src="{{ url_for('static', filename='images/about-img.png') }}" alt="About Us" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="banner-one" class="banner-one text-center">
+            <div class="container text-white">
+                <blockquote class="lead">
+                    <i class="fas fa-quote-left"></i>
+                    When you are young and healthy, it never occurs to you that in a single second your whole life could change.
+                    <i class="fas fa-quote-right"></i>
+                </blockquote>
+                <small class="text text-sm">- Anonymous</small>
+            </div>
+        </section>
+
+        <section id="services" class="services py">
+            <div class="container">
+                <div class="section-head text-center">
+                    <h2 class="lead">The Best Doctor Gives You The Least Medicines</h2>
+                    <p class="text text-lg">
+                        Discover our wide range of healthcare services designed to provide you with the best possible care.
+                    </p>
+                    <div class="line-art flex">
+                        <div></div>
+                        <img src="{{ url_for('static', filename='images/4-dots.png') }}" alt="line art" />
+                        <div></div>
+                    </div>
+                </div>
+                <div class="services-inner text-center grid">
+                    <article class="service-item">
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='images/service-icon-1.png') }}" alt="Virtual Consultation" />
+                        </div>
+                        <h3>Virtual Consultation</h3>
+                        <p class="text text-sm">
+                            Connect with our healthcare professionals from the comfort of your home. Our virtual consultation services offer personalized care and expert advice through secure video calls.
+                        </p>
+                    </article>
+
+                    <article class="service-item">
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='images/service-icon-2.png') }}" alt="Medical Image Diagnosis" />
+                        </div>
+                        <h3>Medical Image Diagnosis</h3>
+                        <p class="text text-sm">
+                            Utilize our advanced diagnostic tools to analyze medical images accurately. Our specialists provide detailed reports and recommendations based on your medical images.
+                        </p>
+                    </article>
+
+                    <article class="service-item">
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='images/service-icon-3.png') }}" alt="Medical Report Summarization" />
+                        </div>
+                        <h3>Medical Report Summarization</h3>
+                        <p class="text text-sm">
+                            Simplify your healthcare experience with our medical report summarization services. We provide concise and easy-to-understand summaries of your medical records.
+                        </p>
+                    </article>
+
+                    <article class="service-item">
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='images/service-icon-4.png') }}" alt="Medical Assistant Chatbot" />
+                        </div>
+                        <h3>Medical Assistant Chatbot</h3>
+                        <p class="text text-sm">
+                            Get instant answers to your health-related queries with our medical assistant chatbot. Available 24/7, it offers advice on symptoms, medications, and general health tips.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="banner-two" class="banner">
+            <div class="container">
+                <img src="{{ url_for('static', filename='images/banner-2.png') }}" alt="Banner Two" />
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+          <div class="footer-inner text-white py grid">
+            <div class="footer-item">
+              <h3 class="footer-head">About Us</h3>
+              <div class="icon">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" />
+              </div>
+              <p class="text text-md">
+                We are dedicated to providing top-notch healthcare services with a focus on personalized care and advanced medical technology. Your health is our priority.
+              </p>
+              <address>
+                Health Center<br />
+                Anna University, Kotturpuram<br />
+                Chennai, Tamil Nadu 600085<br />
+                India
+              </address>
+            </div>
+            <div class="footer-item">
+              <h3 class="footer-head">Tags</h3>
+              <ul class="tags-list flex">
+                <li>Medical Care</li>
+                <li>Virtual Consultation</li>
+                <li>Report Summarisation</li>
+                <li>Medical Chatbot</li>
+                <li>Medical Image Diagnosis</li>
+                <li>AI Precision</li>
+              </ul>
+            </div>
+            <div class="footer-item">
+              <h3 class="footer-head">Quick Links</h3>
+              <ul>
+                <li><a href="{{ url_for('services') }}" class="text-white">Our Services</a></li>
+                <li><a href="{{ url_for('about') }}" class="text-white">Our Plan</a></li>
+              </ul>
+            </div>
+            <div class="footer-item">
+              <h3 class="footer-head">Make an Appointment</h3>
+              <p class="text text-md">
+                Schedule your appointment with our healthcare professionals. We are here to assist you with all your medical needs.
+              </p>
+              <ul class="appointment-info">
+                <li>8:00 AM - 11:00 AM</li>
+                <li>2:00 PM - 5:00 PM</li>
+                <li>8:00 PM - 11:00 PM</li>
+                <li>
+                  <i class="fas fa-envelope"></i><span>healthcentreau@gmail.com</span>
+                </li>
+                <li>
+                  <i class="fas fa-phone"></i><span> 044 2235 9070</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom text-white py">
+            <p class="text">&copy; 2024 AU Health Center. All Rights Reserved</p>
+          </div>
+        </div>
+      </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

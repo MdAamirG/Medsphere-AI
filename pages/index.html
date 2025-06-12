@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Medical Diagnosis Platform</title>
+    <!-- Load the CSS files using url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <h1>Welcome to Our Medical Diagnosis Platform</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/skin">Skin Cancer Analysis</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Get Started with Our Services</h2>
+        <p>We offer advanced AI-based medical diagnosis solutions.</p>
+    </main>
+</body>
+</html>

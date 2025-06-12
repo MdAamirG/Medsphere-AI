@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <main class="main container">
+        <section class="intro">
+            <h1 class="section-title">Welcome to Medical Report Summary</h1>
+            <p class="section-description">
+                Upload your medical reports to receive a detailed analysis powered by AI.
+            </p>
+        </section>
+        <section class="upload-form-section">
+            <form id="uploadForm" class="form" action="{{ url_for('analyze_report') }}" method="post" enctype="multipart/form-data">
+                <label for="fileInput" class="form-label">Upload Medical Report:</label>
+                <input type="file" id="fileInput" name="report" class="form-input" required accept=".pdf,.txt,.doc,.docx" title="Choose a medical report">
+                <button type="submit" class="submit-button">Get Analysis</button>
+            </form>
+        </section>
+
+        <section class="result-section hidden" id="resultSection">
+            <h2 class="result-title">Analysis Results</h2>
+            <div class="result-content" id="resultContent"></div>
+        </section>
+    </main>
+
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Analyzing your report...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}" type="module"></script>
+</body>
+</html>

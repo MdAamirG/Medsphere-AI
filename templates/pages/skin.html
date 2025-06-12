@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Cancer Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+
+    <header>
+        <div class="header-inner text-white text-center">
+            <div class="container grid">
+                <div class="header-inner-left">
+                    <h1>Skin Cancer Detection<br><span>AI Precision at Your Fingertips</span></h1>
+                    <p class="lead">Upload. Analyze. Discover.</p>
+                    <p class="text text-md">Our advanced AI technology helps analyze skin lesion images for early detection of potential skin conditions. Upload your image and get insights within seconds.</p>
+                </div>
+                <div class="header-inner-right">
+                    <img src="{{ url_for('static', filename='images/doc-4.png') }}" alt="Skin Cancer Prediction">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h3>Upload a Skin Lesion Image for Prediction</h3>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="fileInput">Choose an image to upload:</label>
+            <input type="file" name="file" id="fileInput" accept="image/*" required>
+            <button type="submit" id="submit">Predict</button>
+        </form>
+    </main>
+
+    <div id="result">
+        <div class="result-header">Prediction Result:</div>
+        <div class="result-content" id="resultContent">Your prediction results will appear here...</div>
+    </div>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.text();
+                document.getElementById('resultContent').innerHTML = result;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('resultContent').innerHTML = 'An error occurred while processing your request.';
+            }
+        });
+    </script>
+</body>
+</html>
