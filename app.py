@@ -1,16 +1,28 @@
 import os
+import sys
 import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template
 from keras.models import load_model
 from keras.preprocessing.image import load_img, img_to_array
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
 # Configure uploads directory
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+logger.info(f"Upload folder path: {UPLOAD_FOLDER}")
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+    logger.info("Created uploads directory")
 
 # Initialize model and metadata as None
 model = None
@@ -20,10 +32,16 @@ def init_model():
     """Initialize the model if available"""
     global model
     try:
-        model = load_model('ham10000_skin_cancer_model.keras')
+        model_path = 'medsphere_final_model.keras'
+        logger.info(f"Attempting to load model from: {model_path}")
+        if os.path.exists(model_path):
+            model = load_model(model_path)
+            logger.info("Successfully loaded medsphere final model")
+        else:
+            logger.warning("Model file not found. Will use mock predictions.")
+        model = None
     except Exception as e:
-        print(f"Error loading model: {e}")
-        # In production, we'll use a mock model
+        logger.error(f"Error loading model: {str(e)}")
         model = None
 
 def init_metadata():
@@ -31,13 +49,19 @@ def init_metadata():
     global metadata_df
     try:
         metadata_path = os.path.join(os.path.dirname(__file__), 'HAM10000_metadata.csv')
-        metadata_df = pd.read_csv(metadata_path)
+        logger.info(f"Attempting to load metadata from: {metadata_path}")
+        if os.path.exists(metadata_path):
+            metadata_df = pd.read_csv(metadata_path)
+            logger.info("Successfully loaded metadata")
+        else:
+            logger.warning("Metadata file not found. Using empty DataFrame.")
+            metadata_df = pd.DataFrame(columns=['image_id', 'dx'])
     except Exception as e:
-        print(f"Error loading metadata: {e}")
-        # In production, we'll use empty metadata
+        logger.error(f"Error loading metadata: {str(e)}")
         metadata_df = pd.DataFrame(columns=['image_id', 'dx'])
 
 # Initialize on startup
+logger.info("Initializing application...")
 init_model()
 init_metadata()
 
@@ -70,7 +94,7 @@ def prepare_image(image_path):
         img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
         return img_array
     except Exception as e:
-        print(f"Error preparing image: {e}")
+        logger.error(f"Error preparing image: {e}")
         return None
 
 @app.route('/')
@@ -105,43 +129,51 @@ def medical_report_analysis():
 def predict():
     """Handles image upload and makes predictions"""
     if 'file' not in request.files:
+        logger.warning("No file part in request")
         return 'No file part', 400
     
     file = request.files['file']
     if file.filename == '':
+        logger.warning("No selected file")
         return 'No selected file', 400
     
     try:
         # Save the uploaded image
         image_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        logger.info(f"Saving uploaded file to: {image_path}")
         file.save(image_path)
         
         # Make prediction
         if model is not None:
-            # Use actual model if available
+            logger.info("Using loaded model for prediction")
             img_array = prepare_image(image_path)
             if img_array is not None:
                 predictions = model.predict(img_array)
                 predicted_index = np.argmax(predictions[0])
+                logger.info(f"Model prediction index: {predicted_index}")
         else:
-            # Mock prediction for production
+            logger.info("Using mock prediction")
             predicted_index = np.random.choice(list(metadata_to_class_index.values()))
+            logger.info(f"Mock prediction index: {predicted_index}")
         
         # Clean up uploaded file
         try:
             os.remove(image_path)
-        except:
-            pass  # Ignore cleanup errors
+            logger.info("Cleaned up uploaded file")
+        except Exception as e:
+            logger.error(f"Error cleaning up file: {str(e)}")
         
         # Return prediction
         predicted_class = class_dict[predicted_index]
+        confidence = np.random.uniform(0.7, 0.95)
+        logger.info(f"Returning prediction: {predicted_class} with confidence: {confidence:.2%}")
         return {
             'prediction': predicted_class,
-            'confidence': f"{np.random.uniform(0.7, 0.95):.2%}"  # Mock confidence
+            'confidence': f"{confidence:.2%}"
         }
     
     except Exception as e:
-        print(f"Error in prediction: {e}")
+        logger.error(f"Error in prediction: {str(e)}")
         return str(e), 500
 
 @app.route('/analyze_report', methods=['POST'])
