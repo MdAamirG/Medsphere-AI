@@ -4,6 +4,15 @@ MedSphere AI is a web application that provides two main services:
 1. Medical Image Diagnosis (focusing on skin cancer detection)
 2. Medical Report Analysis and Summarization
 
+## Live Demo
+Try it out: [MedSphere AI Web App](https://medsphere-ai.onrender.com)
+
+🚀 **Features:**
+- Instant Skin Cancer Detection
+- Medical Report Analysis
+- User-friendly Interface
+- Real-time Results
+
 ## Features
 
 - Skin Cancer Detection using deep learning model (HAM10000 dataset)
