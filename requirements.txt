@@ -7,3 +7,4 @@ werkzeug==3.0.1
 markdown==3.8.0
 h5py==3.10.0
 protobuf==5.29.5
+gunicorn==21.2.0
